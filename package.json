@@ -1,6 +1,6 @@
 {
   "name": "@li0ard/bign",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -27,7 +27,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@li0ard/belt": "^0.1.2",
+    "@li0ard/belt": "^0.1.4",
     "@noble/curves": "^2.0.0"
   },
   "files": ["dist"],

@@ -1,4 +1,4 @@
-import { hexToBytes } from "@noble/curves/utils";
+import { hexToBytes } from "@noble/curves/utils.js";
 
 /** Bign curve parameters */
 export interface BignCurveParameters {

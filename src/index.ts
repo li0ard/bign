@@ -1,6 +1,6 @@
-import { bytesToNumberBE, bytesToNumberLE, concatBytes, equalBytes, hexToBytes, numberToBytesBE, numberToBytesLE, randomBytes } from "@noble/curves/utils";
-import { BELTOID, SignMode, type BignCurveParameters, type SignOptions, type VerifyOptins } from "./const";
-import { weierstrass } from "@noble/curves/abstract/weierstrass";
+import { bytesToNumberBE, bytesToNumberLE, concatBytes, equalBytes, hexToBytes, numberToBytesBE, numberToBytesLE, randomBytes } from "@noble/curves/utils.js";
+import { BELTOID, SignMode, type BignCurveParameters, type SignOptions, type VerifyOptins } from "./const.js";
+import { weierstrass } from "@noble/curves/abstract/weierstrass.js";
 import { beltHash, encryptWBL } from "@li0ard/belt";
 
 /**
@@ -98,4 +98,4 @@ export const verify = (parameters: BignCurveParameters, pub: Uint8Array, digest:
     return false;
 }
 
-export * from "./const";
+export * from "./const.js";
