@@ -1,7 +1,6 @@
-import { hexToBytes } from "@noble/curves/utils";
+import { hexToBytes } from "@noble/curves/utils.js";
 import { describe, test, expect } from "bun:test";
-import { genK, getPublicKey, sign, verify } from "../src";
-import { BASH384OID, BASH512OID, BIGN128, BIGN192, BIGN256, SignMode } from "../src/const";
+import { genK, getPublicKey, sign, verify, BASH384OID, BASH512OID, BIGN128, BIGN192, BIGN256, SignMode } from "../src";
 
 describe("Get public key", () => {
     test("#1 (256)", () => {
@@ -9,22 +8,22 @@ describe("Get public key", () => {
         const privKey = hexToBytes("1F66B5B84B7339674533F0329C74F21834281FED0732429E0C79235FC273E269");
 
         expect(getPublicKey(BIGN128, privKey)).toStrictEqual(expected);
-    })
+    });
 
     test("#2 (384 bit)", () => {
         const expected = hexToBytes("04" + "212602EE5589B84A4585807AE8BFE3718A52B6758B05F64405F9D3716462B02D334D51CF2712563737F63F5B9BE7E4DA" + "8634E65F71905CB7204DC5BC1229FB6876ED4F60EC299D499AB0641A5F82F291517F76314B50A0ED389368A5690EC3A5");
         const privKey = hexToBytes("84C21DBF7B3C2372DC21386C216FA16C9EF10AEAF9F96A872FD8058F2780BA930F08BE3BEC80416137E11A232D93B50E")
 
         expect(getPublicKey(BIGN192, privKey)).toStrictEqual(expected);
-    })
+    });
 
     test("#3 (512 bit)", () => {
         const expected = hexToBytes("04" + "C6255C65515274CD10E68B2FC13E16B22CB7AC00D45ABE2A2FD0CA5E4E47289543C20F6256A5FAD33E862894C15A477EC4BBEE3C139D95484243BA97F200CA35" + "048521F7AB27D7CF81658CD7D36018CEB8FE64468F1E096A0CB5638D11C4697BB7C9A1CAEAF5F243A6477BE8B306F20BD45E5BB5A8986FED554509FD5FDC39D6");
         const privKey = hexToBytes("BEC096353EF4568AA417622A95F2B56333BF3A02040B31372FD5737DE0F1A2BA6090C1D1A27155D8711FFE5B310278471B0B97CF1B8FE821C50205E5D24AB9B8");
 
         expect(getPublicKey(BIGN256, privKey)).toStrictEqual(expected);
-    })
-})
+    });
+});
 
 describe("Gen K", () => {
     test("#1", () => {
@@ -33,14 +32,14 @@ describe("Gen K", () => {
         const expected = hexToBytes("829614D8411DBBC4E1F2471A4004586440FD8C9553FAB6A1A45CE417AE97111E");
 
         expect(genK(BIGN128, privKey, digest)).toStrictEqual(expected)
-    })
+    });
     test("#2", () => {
         const privKey = hexToBytes("79628979DF369BEB94DEF3299476AED414F39148AA69E31A7397E8AA70578AB3");
         const digest = hexToBytes("9D02EE446FB6A29FE5C982D4B13AF9D3E90861BC4CEF27CF306BFB0B174A154A");
         const expected = hexToBytes("0BA66DA6214E48A701F22695BA9CD6D567DE17A1C601062488728ED8BBF48ED0");
 
         expect(genK(BIGN128, privKey, digest)).toStrictEqual(expected)
-    })
+    });
 
     test("#3", () => {
         const privKey = hexToBytes("84C21DBF7B3C2372DC21386C216FA16C9EF10AEAF9F96A872FD8058F2780BA930F08BE3BEC80416137E11A232D93B50E");
@@ -48,14 +47,14 @@ describe("Gen K", () => {
         const expected = hexToBytes("E48C1A79067653486533401B25D8D93D174DE4695DD2125C0D2F9468CC41387E3C1D8D903E9509032A1FEBF792C74D18");
 
         expect(genK(BIGN192, privKey, digest, BASH384OID)).toStrictEqual(expected)
-    })
+    });
     test("#4", () => {
         const privKey = hexToBytes("04E1315F05B86B662D809209D6104DE8D25DB189FBCE4BFFE6F6CBDE84C96024302D154EF8A7EEF0B6FD292789C3272D");
         const digest = hexToBytes("D06EFBC16FD6C0880CBFC6A4E3D65AB101FA82826934190FAABEBFBFFEDE93B22B85EA72A7FB3147A133A5A8FEBD8320");
         const expected = hexToBytes("76BF95EAF9876FD98619501F2120D8F78DCE2AFBC2E37353B57B576E24D821B26A078978F6C3648A51E67B60DE40BCE7");
 
         expect(genK(BIGN192, privKey, digest, BASH384OID)).toStrictEqual(expected)
-    })
+    });
 
     test("#5", () => {
         const privKey = hexToBytes("BEC096353EF4568AA417622A95F2B56333BF3A02040B31372FD5737DE0F1A2BA6090C1D1A27155D8711FFE5B310278471B0B97CF1B8FE821C50205E5D24AB9B8");
@@ -63,15 +62,15 @@ describe("Gen K", () => {
         const expected = hexToBytes("B1CAB7FE937559E2074BD6CBA402F39D55F94B6CB10739396B63AF9388306A9689428B71A57CC8276F9608E8EBB597F35CC03B7290AD2B80A40CF7E3642A38E8");
 
         expect(genK(BIGN256, privKey, digest, BASH512OID)).toStrictEqual(expected)
-    })
+    });
     test("#6", () => {
         const privKey = hexToBytes("A90188D4EAA8D5B31FD54F3E02E10FEBF1577A14642D7C88B9951F3B957C006C567A20BD7635B9FF02C3045EDDD84553D484DE449CFC054C5A96C8CD5CEA0E33");
         const digest = hexToBytes("07ABBF8580E7E5A321E9B940F667AE209E2952CEF557978AE743DB086BAB4885B708233C3F5541DF8AAFC3611482FDE498E58B3379A6622DAC2664C9C118A162");
         const expected = hexToBytes("47F9F57998B359FE1EF1E693D5ADF97E208314C0ED013235101E6EDA7675BABD125F4D9993B4A8109B4A983221DF6A42E7CCA9F415A4581084B1F2035FD80376");
 
         expect(genK(BIGN256, privKey, digest, BASH512OID)).toStrictEqual(expected)
-    })
-})
+    });
+});
 
 describe("Sign & Verify (Deterministic)", () => {
     test("#1 (128s)", () => {
@@ -80,14 +79,14 @@ describe("Sign & Verify (Deterministic)", () => {
         const expected = hexToBytes("19D32B7E01E25BAE4A70EB6BCA42602CCA6A13944451BCC5D4C54CFD8737619C328B8A58FB9C68FD17D569F7D06495FB");
 
         expect(sign(BIGN128, privKey, digest)).toStrictEqual(expected);
-    })
+    });
     test("#2 (128v)", () => {
         const pubKey =  hexToBytes("04" + "BD1A5650179D79E03FCEE49D4C2BD5DDF54CE46D0CF11E4FF87BF7A890857FD0" + "7AC6A60361E8C8173491686D461B2826190C2EDA5909054A9AB84D2AB9D99A90");
         const digest = hexToBytes("9D02EE446FB6A29FE5C982D4B13AF9D3E90861BC4CEF27CF306BFB0B174A154A");
         const signature = hexToBytes("47A63C8B9C936E94B5FAB3D9CBD78366290F3210E163EEC8DB4E921E8479D4138F112CC23E6DCE65EC5FF21DF4231C28");
 
         expect(verify(BIGN128, pubKey, digest, signature)).toBeTrue();
-    })
+    });
 
     test("#3 (192s)", () => {
         const privKey = hexToBytes("84C21DBF7B3C2372DC21386C216FA16C9EF10AEAF9F96A872FD8058F2780BA930F08BE3BEC80416137E11A232D93B50E");
@@ -97,7 +96,7 @@ describe("Sign & Verify (Deterministic)", () => {
         const expected = hexToBytes("A7FC9D62B6859EBB0A98AAE36BE47969C362B66695750DDD2CA175321826D4BC8F78EBF555A871213FEC6B50A63D30C589733B0A56F6C0C2BC03A3532969CDF011DC28D4844E79EC");
 
         expect(sign(BIGN192, privKey, digest, { k, oid })).toStrictEqual(expected);
-    })
+    });
     test("#4 (192v)", () => {
         const pubKey =  hexToBytes("04" + "212602EE5589B84A4585807AE8BFE3718A52B6758B05F64405F9D3716462B02D334D51CF2712563737F63F5B9BE7E4DA" + "8634E65F71905CB7204DC5BC1229FB6876ED4F60EC299D499AB0641A5F82F291517F76314B50A0ED389368A5690EC3A5");
         const oid = BASH384OID;
@@ -105,7 +104,7 @@ describe("Sign & Verify (Deterministic)", () => {
         const signature = hexToBytes("51D11ABB6392D9040685C4CC3A87553BAF474481198602FCF180DD0E0F0076B75A9B87526956093080DA21ACFE73A70EEF4E5CEAE8C07CDBA526CFA3F6C50DFD4E8E8817C1AE624B");
 
         expect(verify(BIGN192, pubKey, digest, signature, { oid })).toBeTrue();
-    })
+    });
 
     test("#5 (256s)", () => {
         const privKey = hexToBytes("BEC096353EF4568AA417622A95F2B56333BF3A02040B31372FD5737DE0F1A2BA6090C1D1A27155D8711FFE5B310278471B0B97CF1B8FE821C50205E5D24AB9B8");
@@ -115,7 +114,7 @@ describe("Sign & Verify (Deterministic)", () => {
         const expected = hexToBytes("F922D70148C55AD547EB0A1930E52CC552D928DC76E4030C9EE57DE8DED1B5F95D4E33F47CD361DACB1F26B20132E45D4988FB86AF1B54658FE2FE97116177F5D3117CE0632DDFAA8EDE10DA7DF835D2725E2B834CA96C8C061BC831DFA5B316");
 
         expect(sign(BIGN256, privKey, digest, { k, oid })).toStrictEqual(expected);
-    })
+    });
     test("#6 (256v)", () => {
         const pubKey =  hexToBytes("04" + "C6255C65515274CD10E68B2FC13E16B22CB7AC00D45ABE2A2FD0CA5E4E47289543C20F6256A5FAD33E862894C15A477EC4BBEE3C139D95484243BA97F200CA35" + "048521F7AB27D7CF81658CD7D36018CEB8FE64468F1E096A0CB5638D11C4697BB7C9A1CAEAF5F243A6477BE8B306F20BD45E5BB5A8986FED554509FD5FDC39D6");
         const oid = BASH512OID;
@@ -123,7 +122,7 @@ describe("Sign & Verify (Deterministic)", () => {
         const signature = hexToBytes("4B478B2B28795A438C3F4A70D7F302D3D1B615E985CE22DA7122AE1EAB0DD987923994968A24BF15C2E659B4546F83CF1649333879D47954C4AB7E41046EB3D92787F785C91230CD7E65E45526D45650921D772DD42BD3522CF7BD5F7D79AB65");
 
         expect(verify(BIGN256, pubKey, digest, signature, { oid })).toBeTrue();
-    })
+    });
 
     test("#7 (128s/stb)", () => {
         const privKey = hexToBytes("1F66B5B84B7339674533F0329C74F21834281FED0732429E0C79235FC273E269");
@@ -133,8 +132,8 @@ describe("Sign & Verify (Deterministic)", () => {
 
         expect(sign(BIGN128, privKey, digest, { k })).toStrictEqual(expected);
         expect(verify(BIGN128, getPublicKey(BIGN128, privKey), digest, expected)).toBeTrue();
-    })
-})
+    });
+});
 
 describe("Sign & Verify (Default)", () => {
     test("#1", () => {
@@ -143,7 +142,7 @@ describe("Sign & Verify (Default)", () => {
         const signature = sign(BIGN128, privKey, digest, { mode: SignMode.DEFAULT });
 
         expect(verify(BIGN128, getPublicKey(BIGN128, privKey), digest, signature)).toBeTrue();
-    })
+    });
     
     test("#2", () => {
         const privKey = hexToBytes("84C21DBF7B3C2372DC21386C216FA16C9EF10AEAF9F96A872FD8058F2780BA930F08BE3BEC80416137E11A232D93B50E");
@@ -152,7 +151,7 @@ describe("Sign & Verify (Default)", () => {
         const signature = sign(BIGN192, privKey, digest, { oid, mode: SignMode.DEFAULT });
 
         expect(verify(BIGN192, getPublicKey(BIGN192, privKey), digest, signature, { oid })).toBeTrue();
-    })
+    });
 
     test("#3", () => {
         const privKey = hexToBytes("BEC096353EF4568AA417622A95F2B56333BF3A02040B31372FD5737DE0F1A2BA6090C1D1A27155D8711FFE5B310278471B0B97CF1B8FE821C50205E5D24AB9B8");
@@ -161,5 +160,5 @@ describe("Sign & Verify (Default)", () => {
         const signature = sign(BIGN256, privKey, digest, { oid, mode: SignMode.DEFAULT });
 
         expect(verify(BIGN256, getPublicKey(BIGN256, privKey), digest, signature, { oid })).toBeTrue();
-    })
-})
+    });
+});

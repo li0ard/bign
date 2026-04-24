@@ -14,7 +14,7 @@ module.exports = {
         '**/*.test.ts',
     ],
     externalPattern: ['**/dist/**'],
-    name: 'bign',
+    name: '@li0ard/bign',
     out: '../../docs',
     entryPoints: fs.readdirSync(path.join(__dirname, '../../src')).map(it => `../../src/${it}`),
     entryPointStrategy: "expand"

@@ -1,4 +1,4 @@
-import { hexToBytes } from "@noble/curves/utils.js";
+import { hexToBytes, type TArg } from "@noble/curves/utils.js";
 
 /** Bign curve parameters */
 export interface BignCurveParameters {
@@ -25,7 +25,7 @@ export interface BignCurveParameters {
 /** Parameters for verify */
 export interface VerifyOptins {
     /** Hash function OID */
-    oid?: Uint8Array;
+    oid?: TArg<Uint8Array>;
 }
 
 /** Sign modes */
@@ -41,8 +41,7 @@ export interface SignOptions extends VerifyOptins {
     /** Sign mode */
     mode?: SignMode;
     /** One time key */
-    k?: Uint8Array;
-    
+    k?: TArg<Uint8Array>;
 }
 
 /** BelT hash OID */
